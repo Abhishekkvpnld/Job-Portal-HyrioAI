@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constants";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
-const user = []
-const singleJob = []
 
 const JobDescription = () => {
 
+    const { user } = useSelector((store) => store.auth);
+    const [singleJob, setSingleJob] = useState([])
 
     let initialApplied = singleJob?.applications?.some((application) => application.applicant === user?._id) || false;
     const [isApplied, setIsApplied] = useState(initialApplied)
@@ -21,8 +22,9 @@ const JobDescription = () => {
 
     const fetchSingleJob = async () => {
         try {
-            const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true });
+            const res = await axios.get(`${JOB_API_END_POINT}/single/${jobId}`, { withCredentials: true });
             if (res.data.success) {
+                setSingleJob(res?.data?.data)
                 setIsApplied(res?.data?.data?.applications?.some((application) => application.applicant === user?._id));
             }
         } catch (error) {

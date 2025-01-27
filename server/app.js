@@ -7,6 +7,7 @@ import cookie from "cookie-parser";
 import user from "./routes/userRoute.js"
 import Company from "./routes/companyRoute.js";
 import Job from "./routes/jobRoute.js";
+import Application from "./routes/applicationRoute.js"
 
 
 dotenv.config();
@@ -34,8 +35,9 @@ app.use("/health", (req, res) => {
 
 //Routes middlewares
 app.use("/api/v1/user", user);
-app.use("/api/v1/company", Company);
+app.use("/api/v1/company", Company); 
 app.use("/api/v1/Job",Job);
+app.use("/api/v1/application",Application); 
 
 
 const PORT = process.env.PORT || 8000;

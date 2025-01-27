@@ -1,5 +1,7 @@
 import Company from "../models/companyModel.js";
 
+
+
 export const registerCompany = async (req, res) => {
   const userId = req.userId;
   const { name, location, website, description } = req.body;

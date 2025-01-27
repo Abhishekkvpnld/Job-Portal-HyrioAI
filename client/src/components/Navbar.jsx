@@ -84,7 +84,7 @@ const Navbar = () => {
 
 
                                         <div className="flex items-center gap-1">
-                                            <Button className="mt-2 bg-blue-700 text-white" variant="outline"><Link to={"/profile"}>
+                                            <Button className="mt-2 bg-blue-700 text-white" variant="outline"><Link to={"/"}>
                                                 View Profile</Link>
                                             </Button>
                                         </div>
