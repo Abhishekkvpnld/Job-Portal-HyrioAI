@@ -8,19 +8,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthUser } from "@/redux/authSlice";
 
 
-const user = false
 
 const Navbar = () => {
 
-    ;
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const {user} = useSelector((store)=>store.auth);
+
 
     const logoutHandler = async () => {
         try {
             const res = await axios.get(`${USER_API_END_POINT}/logout`, { withCredentials: true })
             if (res.data.success) {
+                dispatch(setAuthUser(null))
                 navigate("/");
                 toast.success(res.data.message);
             }
@@ -50,14 +54,6 @@ const Navbar = () => {
                                     <Link to={"/jobs"}> <li className="hover:underline cursor-pointer">Jobs</li></Link>
                                 </>
                             )
-                            // (
-                            //     <>
-
-
-                            //         <Link to={"/jobs"}> <li className="hover:underline cursor-pointer">Jobs</li></Link>
-                            //         <Link to={"/browse"}><li className="hover:underline cursor-pointer">Browse</li></Link>
-                            //     </>
-                            // )
                         }
 
                     </ul>
@@ -70,7 +66,7 @@ const Navbar = () => {
                             <Popover>
                                 <PopoverTrigger>
                                     <Avatar className="w-10 h-10 rounded-full">
-                                        <AvatarImage src={user?.profile?.profilePhoto || "/profile.png"} alt="avatar" />
+                                        <AvatarImage src={"/profile.png"} alt="avatar" />
                                     </Avatar>
                                 </PopoverTrigger>
 
@@ -81,27 +77,22 @@ const Navbar = () => {
                                         </Avatar>
                                         <div>
                                             <h1 className="text-sm font-medium">{user?.fullname}</h1>
-                                            <p className="text-xs text-slate-500 text-muted-foreground">{user?.profile?.bio}</p>
+                                            <p className="text-xs text-slate-500 text-muted-foreground">Empowering people with innovative and user-friendly technology solutions.</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 justify-between">
 
-                                        {
-                                            user && user.role === "student" && (
-                                                <div className="flex items-center gap-1">
-                                                    {/* <User2 size={18} className="text-slate-600" /> */}
-                                                    <Button className="mt-2" variant="outline"><Link to={"/profile"}>
-                                                        View Profile</Link>
-                                                    </Button>
-                                                </div>
-                                            )
-                                        }
+
+                                        <div className="flex items-center gap-1">
+                                            <Button className="mt-2 bg-blue-700 text-white" variant="outline"><Link to={"/profile"}>
+                                                View Profile</Link>
+                                            </Button>
+                                        </div>
 
 
                                         <div className="flex items-center gap-2">
-                                            {/* <LogOut size={18} className="text-slate-600" /> */}
-                                            <Button onClick={logoutHandler} className="mt-2" variant="destructive">
-                                                <LogOut size={18} className="text-slate-600" /> Logout
+                                            <Button onClick={logoutHandler} className="mt-2 text-white" variant="destructive">
+                                                <LogOut color="white" size={18} className="text-slate-600" /> Logout
                                             </Button>
                                         </div>
                                     </div>

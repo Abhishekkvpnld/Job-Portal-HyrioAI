@@ -18,12 +18,10 @@ const Signup = () => {
 
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
-        fullName: "",
+        username: "",
         email: "",
-        phoneNumber: "",
+        phone: "",
         password: "",
-        role: "",
-        file: ""
     });
 
     const onChangeValueController = (e) => {
@@ -35,9 +33,9 @@ const Signup = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("fullName", input.fullName);
+        formData.append("username", input.username);
         formData.append("email", input.email)
-        formData.append("phoneNumber", input.phoneNumber)
+        formData.append("phone", input.phone)
         formData.append("password", input.password)
 
 
@@ -68,7 +66,7 @@ const Signup = () => {
                     <h1 className="font-bold text-xl mb-2">Sign Up</h1>
                     <div className="my-2">
                         <Label>Full Name</Label>
-                        <Input name="fullName" value={input.fullName} onChange={onChangeValueController} type="text" placeholder="Enter Name" />
+                        <Input name="username" value={input.username} onChange={onChangeValueController} type="text" placeholder="Enter Name" />
                     </div>
 
                     <div className="my-2">
@@ -78,7 +76,7 @@ const Signup = () => {
 
                     <div className="my-2">
                         <Label>Phone Number</Label>
-                        <Input value={input.phoneNumber} onChange={onChangeValueController} name="phoneNumber" type="number" placeholder="Enter Phone Number" />
+                        <Input value={input.phone} onChange={onChangeValueController} name="phone" type="number" placeholder="Enter Phone Number" />
                     </div>
 
                     <div className="my-2">

@@ -4,6 +4,7 @@ export const registerCompany = async (req, res) => {
   const userId = req.userId;
   const { name, location, website, description } = req.body;
 
+
   if (!name || !location || !website || !description) {
     throw new Error("Please provide all required details...❌");
   }
@@ -105,6 +106,7 @@ export const getCompany = async (req, res) => {
     if (!companies) {
       throw new Error("Companies not found...❌");
     }
+
 
     return res.status(200).json({
       success: true,

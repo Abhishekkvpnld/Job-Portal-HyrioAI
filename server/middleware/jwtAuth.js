@@ -12,7 +12,7 @@ export const jwtAuth = async (req, res, next) => {
       if (err) {
         throw new Error("auth error🔐");
       }
-      req.userId = decoded._id;
+      req.userId = decoded.userId;
       next();
     });
   } catch (error) {

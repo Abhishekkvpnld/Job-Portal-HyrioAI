@@ -3,48 +3,52 @@ import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popove
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 
 
-const CompanyTable = () => {
+const CompanyTable = ({ company }) => {
+
+
     return (
-        <div>
+        <div className="p-3">
             <Table>
-                <TableCaption>A List of recent applied user</TableCaption>
+                <TableCaption>A List of recent registered company </TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Full Name</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Resume</TableHead>
+                        <TableHead>Company Name</TableHead>
+                        <TableHead>Location</TableHead>
+                        <TableHead>Website</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead className={"text-right"}>Action</TableHead>
                     </TableRow>
                 </TableHeader>
 
                 <TableBody>
-                    <tr>
-                        <TableCell>Abhishek KV</TableCell>
-                        <TableCell>Abhishek@gmail.com</TableCell>
-                        <TableCell>9525465854</TableCell>
-                        <TableCell>Resume</TableCell>
-                        <TableCell>25/01/2025</TableCell>
-                        <TableCell className="text-right">
-                            <Popover>
-                                <PopoverTrigger>
-                                    <MoreHorizontal />
-                                </PopoverTrigger>
-                                <PopoverContent className="float-right cursor-pointer w-fit mr-5 bg-blue-50 flex flex-col items-start p-4 space-y-2">
-                                    {ShortListStatus.map((status, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex items-center w-full cursor-pointer hover:underline"
-                                        >
-                                            <span>{status}</span>
-                                        </div>
-                                    ))}
-                                </PopoverContent>
-                            </Popover>
+                    {
+                        company?.map((company) => (
+                            <tr key={company?._id}>
+                                <TableCell>{company?.name}</TableCell>
+                                <TableCell>{company?.location}</TableCell>
+                                <TableCell>{company?.website}</TableCell>
+                                <TableCell>{company?.createdAt.split("T")[0]}</TableCell>
+                                <TableCell className="text-right">
+                                    <Popover>
+                                        <PopoverTrigger>
+                                            <MoreHorizontal />
+                                        </PopoverTrigger>
+                                        <PopoverContent className="float-right cursor-pointer w-fit mr-5 bg-blue-50 flex flex-col items-start p-4 space-y-2">
+                                            {/* {ShortListStatus.map((status, index) => ( */}
+                                            <div
+                                                // key={index}
+                                                className="flex items-center w-full cursor-pointer hover:underline"
+                                            >
+                                                <span>Update</span>
+                                            </div>
+                                            {/* ))} */}
+                                        </PopoverContent>
+                                    </Popover>
 
-                        </TableCell>
-                    </tr>
+                                </TableCell>
+                            </tr>
+                        ))
+                    }
                 </TableBody>
 
             </Table>

@@ -11,12 +11,15 @@ import axios from "axios";
 import { USER_API_END_POINT } from "@/utils/constants";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthUser, setLoading } from "@/redux/authSlice";
 
 
 const Login = () => {
 
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const { loading } = useSelector((store) => store.auth);
 
     const [input, setInput] = useState({
         email: "",
@@ -31,7 +34,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            setLoading(true)
+            dispatch(setLoading(true))
             const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
                 headers: {
                     "Content-Type": "application/json"
@@ -40,6 +43,7 @@ const Login = () => {
             });
 
             if (res?.data?.success) {
+                dispatch(setAuthUser(res?.data?.data))
                 navigate("/")
                 toast.success(res?.data?.message);
             }
@@ -47,7 +51,7 @@ const Login = () => {
             console.log(error)
             toast.error(error?.response?.data?.message);
         } finally {
-            setLoading(false)
+            dispatch(setLoading(false));
         }
     }
 
