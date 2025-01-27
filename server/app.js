@@ -4,6 +4,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import dbConnection from "./utils/dbConnection.js";
 import cookie from "cookie-parser";
+import user from "./routes/userRoute.js"
+import Company from "./routes/companyRoute.js";
+
 
 dotenv.config();
 
@@ -29,8 +32,8 @@ app.use("/health", (req, res) => {
 });
 
 //Routes middlewares
-// app.use("/api/v1/auth", auth);
-// app.use("/api/v1", userRoute);
+app.use("/api/v1/user", user);
+app.use("/api/v1/company", Company);
 
 
 
