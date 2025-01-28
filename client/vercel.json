@@ -1,0 +1,20 @@
+{
+    "routes": [
+      { "src": "/", "dest": "/" },
+      { "src": "/signup", "dest": "/" },
+      { "src": "/login", "dest": "/" },
+      { "src": "/update-profile/(.*)", "dest": "/" },
+      { "src": "/jobs", "dest": "/" },
+      { "src": "/jobs/description/(.*)", "dest": "/" },
+      { "src": "/jobs/create", "dest": "/" },
+      { "src": "/jobs/verify", "dest": "/" },
+      { "src": "/jobs/applied", "dest": "/" },
+      { "src": "/companies", "dest": "/" },
+      { "src": "/companies/create", "dest": "/" },
+      { "src": "/admin-panel", "dest": "/" },
+      { "src": "/admin-panel/all-users", "dest": "/" },
+      { "src": "/admin-panel/all-products", "dest": "/" },
+      { "src": "/admin-panel/all-orders", "dest": "/" }
+    ]
+  }
+  

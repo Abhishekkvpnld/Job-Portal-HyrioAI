@@ -12,7 +12,7 @@ import { Loader2 } from "lucide-react";
 
 
 
-const Signup = () => {
+const SignUp = () => {
 
     const navigate = useNavigate();
 
@@ -89,4 +89,4 @@ const Signup = () => {
     )
 }
 
-export default Signup;
+export default SignUp
