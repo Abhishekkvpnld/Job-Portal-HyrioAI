@@ -1,4 +1,4 @@
-import JobTable from "@/components/Jobtable";
+import JobTable from "@/components/JobTable";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { JOB_API_END_POINT } from "@/utils/constants";
