@@ -62,13 +62,12 @@ export const applyJob = async (req, res) => {
     
     Thank you for applying for the position of "${checkJob.title}" at ${company.name}. We have successfully received your application and are currently reviewing your qualifications.
     If your profile matches our requirements, we will get in touch with you to discuss the next steps.
-    In the meantime, if you have any questions, feel free to reach out to us.
-    We appreciate your interest and wish you the best of luck!
+    In the meantime, if you have any questions, feel free to reach out to us.We appreciate your interest and wish you the best of luck!
     
     Best regards,  
-    ${companyName}  
+    ${company.name}  
     `;
- 
+
     let to = user?.email;
     //Send Mail-Send Job details
     await sendMail(to, subject, text);

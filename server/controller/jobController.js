@@ -71,7 +71,7 @@ export const allJobs = async (req, res) => {
     const userId = req.userId;
 
     const allJobs = await Job.find();
-    const filterJobs = allJobs.filter((job) => job.created_by !== userId);
+    const filterJobs = allJobs.filter((job) => job.created_by != userId);
 
     return res.status(201).json({
       success: true,
@@ -200,8 +200,9 @@ export const verifyAccount = async (req, res) => {
     const newOTP = generateOTP();
     let subject = "OTP for Your Verification Request";
     let to = user.email;
-    
+
     let text = `Dear ${user?.username},
+    
 A One-Time Password (OTP) has been sent to your email address to verify your request. Please check your inbox (or spam folder) for the OTP.
 Use the following OTP to complete your verification:
 

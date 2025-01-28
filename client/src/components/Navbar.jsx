@@ -17,7 +17,7 @@ const Navbar = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const {user} = useSelector((store)=>store.auth);
+    const { user } = useSelector((store) => store.auth);
 
 
     const logoutHandler = async () => {
@@ -73,11 +73,8 @@ const Navbar = () => {
 
                                 <PopoverContent className="w-72">
                                     <div className="flex items-center gap-1">
-                                        <Avatar className="w-5 h-5 rounded-full">
-                                            <AvatarImage src={user?.profile?.profilePhoto} alt="avatar" />
-                                        </Avatar>
                                         <div>
-                                            <h1 className="text-sm font-medium">{user?.fullname}</h1>
+                                            <h1 className="text-lg font-medium">{user?.username}</h1>
                                             <p className="text-xs text-slate-500 text-muted-foreground">Empowering people with innovative and user-friendly technology solutions.</p>
                                         </div>
                                     </div>

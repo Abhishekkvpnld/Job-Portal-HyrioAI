@@ -41,6 +41,7 @@ const EmailVerify = () => {
             if (res?.data?.success) {
                 setNext(true);
                 setOTP(res?.data?.data)
+                toast.success(res?.data?.message)
             }
         } catch (error) {
             console.log(error)
