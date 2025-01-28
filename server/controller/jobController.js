@@ -1,4 +1,7 @@
 import Job from "../models/jobPostModel.js";
+import User from "../models/userModel.js";
+import { sendMail } from "../utils/nodeMailer.js";
+import { generateOTP } from "../utils/otpGenerator.js";
 
 export const jobPost = async (req, res) => {
   try {
@@ -93,7 +96,7 @@ export const getSingleJob = async (req, res) => {
     throw new Error("Something went wrong");
   }
   try {
-    const singleJob = await Job.findById(jobId);
+    const singleJob = await Job.findById(jobId).populate("applications");
 
     if (!singleJob) {
       return res.status(400).json({
@@ -150,7 +153,6 @@ export const deleteJob = async (req, res) => {
       throw new Error("Please login first");
     }
 
-
     const job = await Job.findById(jobId);
 
     if (!job) {
@@ -160,7 +162,6 @@ export const deleteJob = async (req, res) => {
         message: "Job Not Found",
       });
     }
-
 
     if (job?.created_by != userId) {
       throw new Error("You dont have permission to delete this post");
@@ -172,6 +173,49 @@ export const deleteJob = async (req, res) => {
       success: true,
       error: false,
       message: "Job Post Deleted Successfully...✅",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
+export const verifyAccount = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    if (!userId) {
+      throw new Error("Please login first");
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const newOTP = generateOTP();
+    let subject = "OTP for Your Verification Request";
+    let to = user.email;
+    
+    let text = `Dear ${user?.username},
+A One-Time Password (OTP) has been sent to your email address to verify your request. Please check your inbox (or spam folder) for the OTP.
+Use the following OTP to complete your verification:
+
+OTP: ${newOTP}
+
+This OTP will expire in 10 minutes for security purposes. If you did not request this, please ignore this email.`;
+
+    await sendMail(to, subject, text);
+
+    return res.status(201).json({
+      success: true,
+      error: false,
+      message: "OTP send to your email...✅",
+      data: newOTP,
     });
   } catch (error) {
     console.log(error);

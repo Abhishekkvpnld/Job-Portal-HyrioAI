@@ -30,7 +30,7 @@ const Home = () => {
         <div className="flex flex-col justify-between min-h-[100vh]">
             <Navbar />
             <h1 className="ml-6 mt-5 font-bold text-2xl">Latest Jobs</h1>
-            <div className="p-4 grid grid-cols-3 gap-3">
+            <div className="p-4 grid grid-cols-3 gap-3 min-h-[80vh]">
                 {
                     data?.map((job) => (
                         <JobCard job={job} key={job?._id} />

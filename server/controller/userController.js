@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
   try {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password) {
       throw new Error("Please Provide All Details...❌");
@@ -22,7 +22,6 @@ export const login = async (req, res) => {
     if (!isPasswordMatch) {
       throw new Error("Incorrect email or password...❌");
     }
-
 
     const tokenData = {
       userId: user._id,
@@ -89,7 +88,6 @@ export const signup = async (req, res) => {
       phone: phone, // Use the correct variable
     });
 
-    console.log(newUser);
 
     // Respond with success message
     res.status(201).json({
@@ -116,6 +114,78 @@ export const logout = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
+export const fetchUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    if (!userId) {
+      throw new Error("Please login first...❌");
+    }
+
+    let user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      throw new Error("User not found with this email...❌");
+    }
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: true,
+      message: error.message,
+    });
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    console.log(req.body)
+    const { username, phone } = req.body; 
+    const userId = req.userId;
+
+    console.log(username, phone, userId);
+
+    // Find the user by ID
+    let user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found...❌");
+    }
+
+    // Update data
+    if (username) user.username = username;
+    if (phone) user.phone = phone;
+
+    await user.save();
+
+    const updatedUser = {
+      _id: user._id,
+      username: user.username,
+      email:user.email,
+      phone: user.phone,
+    };
+
+    return res.status(200).json({
+      success: true,
+      error: false,
+      message: "Profile Updated Successfully...✅",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({
       success: false,
       error: true,

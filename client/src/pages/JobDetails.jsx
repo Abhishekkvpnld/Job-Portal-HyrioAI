@@ -14,7 +14,8 @@ const JobDescription = () => {
     const { user } = useSelector((store) => store.auth);
     const [singleJob, setSingleJob] = useState([])
 
-    let initialApplied = singleJob?.applications?.some((application) => application.applicant === user?._id) || false;
+
+    let initialApplied = singleJob?.applications?.some((application) => application.userId == user?._id) || false;
     const [isApplied, setIsApplied] = useState(initialApplied)
 
     const params = useParams();
@@ -25,7 +26,7 @@ const JobDescription = () => {
             const res = await axios.get(`${JOB_API_END_POINT}/single/${jobId}`, { withCredentials: true });
             if (res.data.success) {
                 setSingleJob(res?.data?.data)
-                setIsApplied(res?.data?.data?.applications?.some((application) => application.applicant === user?._id));
+                setIsApplied(res?.data?.data?.applications?.some((application) => application.userId === user?._id));
             }
         } catch (error) {
             console.log(error)
@@ -37,7 +38,6 @@ const JobDescription = () => {
             const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`, { withCredentials: true });
             if (res?.data?.success) {
                 setIsApplied(true);
-                const updatedSingleJob = { ...singleJob, applications: [...singleJob.applications, { applicant: user?._id }] }
                 toast.success(res?.data?.message);
             }
 
@@ -67,7 +67,7 @@ const JobDescription = () => {
                     </div>
                 </div>
                 <Button
-                    onClick={isApplied ? null : applyJobHandler}
+                    onClick={isApplied ? "" : applyJobHandler}
                     disabled={isApplied}
                     className={`rounded-lg px-10 ${isApplied ? "cursor-not-allowed bg-slate-700 text-white" : "bg-blue-700 transition text-white hover:bg-blue-800"}`}
                 >

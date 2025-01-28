@@ -44,8 +44,21 @@ const jobSchema = new mongoose.Schema(
     },
     applications: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Application",
+        jobId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Job',
+          required: true,
+        },
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User', 
+          required: true,
+        },
+        application: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Application',
+          required: true,
+        },
       },
     ],
   },

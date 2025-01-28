@@ -37,10 +37,10 @@ const Jobs = () => {
 
       <div className="flex items-center justify-between mx-6 mt-4">
         <h1 className="my-2 mx-3 font-bold text-2xl">Posted Jobs</h1>
-        <Button onClick={() => navigate("/jobs/create")}>Post Job <span><Plus /></span></Button>
+        <Button onClick={() => navigate("/jobs/verify")}>Post Job <span><Plus /></span></Button>
       </div>
 
-      <JobTable jobs={data} />
+      <JobTable jobs={data} /> 
 
     </div>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import Navbar from "../components/Navbar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -7,7 +7,7 @@ import { ArrowBigLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utils/constants";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,9 +15,6 @@ import { useNavigate, useParams } from "react-router-dom";
 const CreateCompany = () => {
 
   const [loading, setLoading] = useState(false);
-  const params = useParams();
-  const companyId = params.id;
-
 
   const navigate = useNavigate();
   const [input, setinput] = useState({

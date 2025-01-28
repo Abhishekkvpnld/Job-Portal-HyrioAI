@@ -1,5 +1,8 @@
 import Application from "../models/applicationModel.js";
+import Company from "../models/companyModel.js";
 import Job from "../models/jobPostModel.js";
+import User from "../models/userModel.js";
+import { sendMail } from "../utils/nodeMailer.js";
 
 export const applyJob = async (req, res) => {
   try {
@@ -14,10 +17,20 @@ export const applyJob = async (req, res) => {
       throw new Error("Job not found...");
     }
 
+    let user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
     // check job available
     const checkJob = await Job.findById(jobId);
     if (!checkJob) {
       throw new Error("Job not available...");
+    }
+
+    let company = await Company.findById(checkJob?.company);
+    if (!company) {
+      throw new Error("Company not available...");
     }
 
     // check user already applied
@@ -36,8 +49,29 @@ export const applyJob = async (req, res) => {
       applicant: userId,
     });
 
-    checkJob.applications.push(newApplication._id);
+    checkJob.applications.push({
+      application: newApplication._id,
+      jobId: newApplication.job,
+      userId: newApplication.applicant,
+    });
     await checkJob.save();
+
+    let subject = `JobNest Application: ${checkJob?.title}`;
+    let text = `
+    Dear ${user.username},
+    
+    Thank you for applying for the position of "${checkJob.title}" at ${company.name}. We have successfully received your application and are currently reviewing your qualifications.
+    If your profile matches our requirements, we will get in touch with you to discuss the next steps.
+    In the meantime, if you have any questions, feel free to reach out to us.
+    We appreciate your interest and wish you the best of luck!
+    
+    Best regards,  
+    ${companyName}  
+    `;
+ 
+    let to = user?.email;
+    //Send Mail-Send Job details
+    await sendMail(to, subject, text);
 
     return res.status(201).json({
       success: true,
@@ -135,11 +169,10 @@ export const updateStatus = async (req, res) => {
     await application.save();
 
     return res.status(200).json({
-      success:true,
-      error:false,
-      message:"Status updated successfully...✅"
-    })
-
+      success: true,
+      error: false,
+      message: "Status updated successfully...✅",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({

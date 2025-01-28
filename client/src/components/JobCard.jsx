@@ -26,7 +26,7 @@ const JobCard = ({ job }) => {
             </div>
 
             <div className="flex items-center justify-end gap-3 my-3">
-                <Button className={"bg-blue-700 text-white hover:bg-blue-800"}>Apply</Button>
+                <Button onClick={()=>navigate(`/jobs/description/${job?._id}`)} className={"bg-blue-700 text-white hover:bg-blue-800"}>Apply</Button>
                 <Button onClick={()=>navigate(`/jobs/description/${job?._id}`)}>Details</Button>
             </div>
         </div>

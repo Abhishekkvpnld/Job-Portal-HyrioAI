@@ -52,6 +52,7 @@ const Navbar = () => {
                                     <Link to={"/"}> <li className="hover:underline cursor-pointer">Home</li></Link>
                                     <Link to={"/companies"}> <li className="hover:underline cursor-pointer">companies</li></Link>
                                     <Link to={"/jobs"}> <li className="hover:underline cursor-pointer">Jobs</li></Link>
+                                    <Link to={`/jobs/applied`}> <li className="hover:underline cursor-pointer">Browse</li></Link>
                                 </>
                             )
                         }
@@ -84,8 +85,8 @@ const Navbar = () => {
 
 
                                         <div className="flex items-center gap-1">
-                                            <Button className="mt-2 bg-blue-700 text-white" variant="outline"><Link to={"/"}>
-                                                View Profile</Link>
+                                            <Button className="mt-2 bg-blue-700 text-white" variant="outline"><Link to={`/update-profile/${user?._id}`}>
+                                                Update Profile</Link>
                                             </Button>
                                         </div>
 

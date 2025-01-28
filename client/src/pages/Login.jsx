@@ -3,7 +3,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { Button } from "../components/ui/button";
-import { RadioGroup } from "../components/ui/radio-group";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { useState } from "react";
@@ -74,19 +73,7 @@ const Login = () => {
                         <Input value={input.password} onChange={onChangeValueController} name="password" type="password" placeholder="Enter Password" />
                     </div>
 
-                    <div className="flex items-center justify-between w-full">
-                        <RadioGroup className="flex items-center gap-4 my-4">
-                            <div className="flex items-center space-x-2">
-                                <input checked={input.role === "student"} onChange={onChangeValueController} type="radio" name="verify" id="r1" value={"student"} className="cursor-pointer" />
-                                <Label htmlFor="r1">Student</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <input checked={input.role === "recruiter"} onChange={onChangeValueController} type="radio" name="verify" id="r2" value={"recruiter"} className="cursor-pointer" />
-                                <Label htmlFor="r2">Recruiter</Label>
-                            </div>
-                        </RadioGroup>
-
-                    </div>
+                   
 
                     {
                         loading ? <Button className="w-full my-4 "><Loader2 className="animate-spin" /> Please wait...</Button> :
