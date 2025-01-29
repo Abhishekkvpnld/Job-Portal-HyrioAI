@@ -18,9 +18,9 @@ const app = express();
 app.use(
     cors({
       origin: [
+        "https://job-portal-hyrio-ai.vercel.app",
         process.env.FRONTEND_URL,
         "http://localhost:5173",
-        "https://job-portal-hyrio-ai.vercel.app"
       ],
       credentials: true,
     })

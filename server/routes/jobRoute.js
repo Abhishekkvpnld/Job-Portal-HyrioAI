@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 router.post("/create", jwtAuth, jobPost);
-router.get("/all", jwtAuth, allJobs);
+router.get("/all", allJobs);
 router.get("/single/:id", jwtAuth, getSingleJob);
 router.get("/postedJobs", jwtAuth, postedJobs);
 router.delete("/delete/:id", jwtAuth, deleteJob);
